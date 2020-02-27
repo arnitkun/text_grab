@@ -19,12 +19,15 @@ from PIL import Image
 
 def getTextOverlay(input_image):
 
-    greyScale = cv2.cvtColor(input_image, cv2.COLOR_BGR2GRAY)
+    greyScale = cv2.cvtColor(input_image, cv2.COLOR_BGR2GRAY) #converting image to grey
     
-    kernel = np.ones((5,5), np.uint8)
-    inverted = cv2.bitwise_not(greyScale)
+    kernel = np.ones((5,5), np.uint8) #kernel with arbitrarily selected value for erosion and dilation
+
+    inverted = cv2.bitwise_not(greyScale) # inverted the image colorspace
+
     erosion = cv2.erode(inverted, kernel, iterations = 2) #remove the extra lines 
-    dilation = cv2.dilate(erosion,kernel,iterations = 3)
+    dilation = cv2.dilate(erosion,kernel,iterations = 3) #dilated the white pixels so as to conpensate for the loss by erosion 
+
     # thresh = cv2.adaptiveThreshold(dilation, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY,11,8)
     img = dilation
     np_img = np.array(img)
