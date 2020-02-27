@@ -19,6 +19,8 @@ from PIL import Image
 
 def getTextOverlay(input_image):
 
+    # image should be resized here, otherwise the naive dilation takes would prove to be rather slow
+    
     greyScale = cv2.cvtColor(input_image, cv2.COLOR_BGR2GRAY) #converting image to grey
     
     kernel = np.ones((5,5), np.uint8) #kernel with arbitrarily selected value for erosion and dilation
